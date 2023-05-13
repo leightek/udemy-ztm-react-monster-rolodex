@@ -4,7 +4,7 @@ class CardList extends Component {
 
     render() {
         const { monsters } = this.props;
-        console.log(monsters);
+        console.log("render");
         
         return (
             <div>
