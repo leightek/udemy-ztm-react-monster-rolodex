@@ -22,17 +22,13 @@ class App extends Component {
         this.setState(
           () => {
             return { monsters: users };
-          },
-          /* () => {
-            console.log(this.state);
-          } */
+          }
         )
     );
   }
 
   onSearchChange = (event) => {
     const searchField = event.target.value.toLowerCase();
-    // [ {name: 'Leanne'}, {name: 'Leo'} ]
 
     this.setState(
       () => {
@@ -59,14 +55,6 @@ class App extends Component {
           placeholder='search monsters' 
           onChange={onSearchChange} 
         />
-        {/* {
-          filteredMonsters.map((monster) => {
-            return (
-              <div key={monster.id}>
-                <h1>{monster.name}</h1>
-              </div>
-            );
-          })} */}
         <CardList monsters={filteredMonsters} />
       </div>
     );

@@ -3,17 +3,16 @@ import { Component } from 'react';
 class CardList extends Component {
 
     render() {
-        console.log(this.props);
+        const { monsters } = this.props;
+        console.log(monsters);
+        
         return (
             <div>
-                <h1>Hello I'm the CardList Component</h1>
-                <div>
-                    <p>text</p>
-                </div>
-
-                <div></div>
+                {monsters.map((monster) => (
+                    <h1>{monster.name}</h1>
+                ))}
             </div>
-        )
+        );
     }
 }
 
