@@ -7,32 +7,35 @@ import './App.css';
 const App = () => {
   const [searchField, setSearchField] = useState(''); // [value, setValue]
   const [monsters, setMonsters] = useState([]);
+  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
   const [stringField, setStringField] = useState('');
   // console.log(searchField);
 
   console.log('render');
 
   useEffect(() => {
-    console.log('effect fired');
+    const newFilteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(searchField);
+    });
+    setFilteredMonsters(newFilteredMonsters);
+
+    console.log('effect is firing for filtered monsters')
+  }, [monsters, searchField])
+  
+  useEffect(() => {
+    // console.log('effect fired for monsters retrieval');
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response => response.json())
     .then((users) => setMonsters(users));  // users object is different array even the value is the same
   }, []);  // use [] for run the function when mounts
 
+  const onStringChange = (event) => {
+    setStringField(event.target.value);
+  }
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLowerCase();
     setSearchField(searchFieldString); // the state value trigger the re-rending
   };
-
-  const onStringChange = (event) => {
-    setStringField(event.target.value);
-  }
-
-  const filteredMonsters = monsters.filter((monster) => {
-    return monster.name.toLowerCase().includes(searchField);
-  });
-
-  console.log(filteredMonsters);
 
   return (
     <div className='App'>
