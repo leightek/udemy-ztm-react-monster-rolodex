@@ -7,6 +7,7 @@ import './App.css';
 const App = () => {
   const [searchField, setSearchField] = useState(''); // [value, setValue]
   const [monsters, setMonsters] = useState([]);
+  const [stringField, setStringField] = useState('');
   // console.log(searchField);
 
   console.log('render');
@@ -23,9 +24,15 @@ const App = () => {
     setSearchField(searchFieldString); // the state value trigger the re-rending
   };
 
+  const onStringChange = (event) => {
+    setStringField(event.target.value);
+  }
+
   const filteredMonsters = monsters.filter((monster) => {
     return monster.name.toLowerCase().includes(searchField);
   });
+
+  console.log(filteredMonsters);
 
   return (
     <div className='App'>
@@ -34,6 +41,10 @@ const App = () => {
         className='monsters-search-box'
         onChangeHandler={onSearchChange} 
         placeholder='search monsters' 
+      />
+      <SearchBox 
+        onChangeHandler={onStringChange} 
+        placeholder='set string' 
       />
       <CardList monsters={filteredMonsters} />
     </div>
