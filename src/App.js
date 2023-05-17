@@ -1,19 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/search-box/search-box.component'
 import './App.css';
 
 const App = () => {
+  const [searchField, setSearchField] = useState(''); // [value, setValue]
+  const [monsters, setMonsters] = useState([]);
+  // console.log(searchField);
+
   console.log('render');
-  const [searchField, setSearchField] = useState('a'); // [value, setValue]
-  console.log(searchField);
+
+  useEffect(() => {
+    console.log('effect fired');
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then((users) => setMonsters(users));  // users object is different array even the value is the same
+  }, []);  // use [] for run the function when mounts
 
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLowerCase();
     setSearchField(searchFieldString); // the state value trigger the re-rending
-  }
-  
+  };
+
+  const filteredMonsters = monsters.filter((monster) => {
+    return monster.name.toLowerCase().includes(searchField);
+  });
+
   return (
     <div className='App'>
       <h1 className='app-title'>Monsters Rolodex</h1>
@@ -22,7 +35,7 @@ const App = () => {
         onChangeHandler={onSearchChange} 
         placeholder='search monsters' 
       />
-  {/* <CardList monsters={filteredMonsters} /> */}
+      <CardList monsters={filteredMonsters} />
     </div>
   )
 }
