@@ -8,7 +8,6 @@ const App = () => {
   const [searchField, setSearchField] = useState(''); // [value, setValue]
   const [monsters, setMonsters] = useState([]);
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
-  const [stringField, setStringField] = useState('');
   // console.log(searchField);
 
   console.log('render');
@@ -19,7 +18,7 @@ const App = () => {
     });
     setFilteredMonsters(newFilteredMonsters);
 
-    console.log('effect is firing for filtered monsters')
+    // console.log('effect is firing for filtered monsters')
   }, [monsters, searchField])
   
   useEffect(() => {
@@ -29,9 +28,6 @@ const App = () => {
     .then((users) => setMonsters(users));  // users object is different array even the value is the same
   }, []);  // use [] for run the function when mounts
 
-  const onStringChange = (event) => {
-    setStringField(event.target.value);
-  }
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLowerCase();
     setSearchField(searchFieldString); // the state value trigger the re-rending
@@ -44,10 +40,6 @@ const App = () => {
         className='monsters-search-box'
         onChangeHandler={onSearchChange} 
         placeholder='search monsters' 
-      />
-      <SearchBox 
-        onChangeHandler={onStringChange} 
-        placeholder='set string' 
       />
       <CardList monsters={filteredMonsters} />
     </div>
